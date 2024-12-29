@@ -6,7 +6,7 @@
 /*   By: moaatik <moaatik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 23:59:08 by moaatik           #+#    #+#             */
-/*   Updated: 2024/11/25 14:08:24 by moaatik          ###   ########.fr       */
+/*   Updated: 2024/12/05 17:27:19 by moaatik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_and_do(const char *format, va_list elements)
 	if (*format == 'c')
 		count += ft_putchar(va_arg(elements, int));
 	else if (*format == '%')
-		count += write(1, "%%", 1);
+		count += write(1, "%", 1);
 	else if (*format == 's')
 		count += ft_putstr(va_arg(elements, char *), 0);
 	else if (*format == 'd' || *format == 'i')
@@ -46,15 +46,16 @@ int	ft_printf(const char *format, ...)
 	int		add;
 
 	count = 0;
-	add = 0;
 	va_start(elements, format);
 	while (*format)
 	{
-		if (*format == '%' && *(format + 1))
+		add = 0;
+		if (*format == '%' && *(++format))
 		{
-			format++;
-			if (ft_strchr("cspdiuxX%%", *format))
+			if (ft_strchr("cspdiuxX%", *format))
 				add = check_and_do(format, elements);
+			else
+				add = write(1, format, 1);
 		}
 		else
 			add = write(1, format, 1);

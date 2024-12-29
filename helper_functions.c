@@ -6,7 +6,7 @@
 /*   By: moaatik <moaatik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:08:28 by moaatik           #+#    #+#             */
-/*   Updated: 2024/11/26 17:39:26 by moaatik          ###   ########.fr       */
+/*   Updated: 2024/12/07 18:10:05 by moaatik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,40 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int    count_hexa(long nb)
-{
-    int    count;
-
-    count = 1;
-    while (nb >= 16)
-    {
-        nb /= 16;
-        count++;
-    }
-    return (count);
-}
-
-int	ft_count(long i)
-{
-	int	count;
-
-	if (i == 0)
-		return (1);
-	count = 0;
-	if (i < 0)
-	{
-		i *= -1;
-		count++;
-	}
-	while (i > 0)
-	{
-		i /= 10;
-		count++;
-	}
-	return (count);
-}
-
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr(const char *s, int c)
 {
 	int	i;
 
@@ -63,12 +30,12 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			return ((char *)(s + i));
+			return (1);
 		i++;
 	}
 	if (s[i] == (char)c)
-		return ((char *)(s + i));
-	return (NULL);
+		return (1);
+	return (0);
 }
 
 int	ft_atoi(const char **str)
@@ -76,6 +43,8 @@ int	ft_atoi(const char **str)
 	long	result;
 
 	result = 0;
+	while (**str == ' ')
+		(*str)++;
 	while (**str == '-' || **str == '+')
 		(*str)++;
 	while (**str >= '0' && **str <= '9')
@@ -83,5 +52,7 @@ int	ft_atoi(const char **str)
 		result = result * 10 + (**str - '0');
 		(*str)++;
 	}
+	while (**str == ' ')
+		(*str)++;
 	return (result);
 }
